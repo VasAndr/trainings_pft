@@ -1,13 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
-import javafx.print.Collation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
