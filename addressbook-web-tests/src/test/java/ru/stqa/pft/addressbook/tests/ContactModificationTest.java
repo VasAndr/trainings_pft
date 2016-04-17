@@ -11,9 +11,10 @@ import java.util.List;
  * Created by Hermit on 13.03.2016.
  */
 public class ContactModificationTest extends TestBase {
-    @Test
+
+    @Test(enabled = false)
     public void testContactModification() {
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         if (! app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("Andr", "Serg", "Vas", "chirp", "title", "PFT", "Dark st, 4//13-7", "6765867867979", "23477894", "08653423", "4654769", "Ex_Group1"));
         }
