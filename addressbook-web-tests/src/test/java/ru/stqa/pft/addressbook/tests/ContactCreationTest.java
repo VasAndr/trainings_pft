@@ -18,9 +18,24 @@ public class ContactCreationTest  extends TestBase {
                 .withHomePhone("6765867867979").withMobile("23477894").withWorkPhone("08653423").withFax("4654769")
                 .inGroup("Ex_Group1");
         app.contact().create(contact);
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
 
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    }
+
+    @Test //(enabled = false)
+    public void testBadContactCreation() {
+        app.goTo().homePage();
+        Contacts before = app.contact().all();
+        ContactData contact = new ContactData().withFirstName("D'Andr").withMidName("Serg").withLastName("Vas")
+                .withNick("chirp").withTitle("title").withCompany("PFT").withAddress("Dark st, 4//13-7")
+                .withHomePhone("6765867867979").withMobile("23477894").withWorkPhone("08653423").withFax("4654769")
+                .inGroup("Ex_Group1");
+        app.contact().create(contact);
+        assertThat(app.contact().count(), equalTo(before.size()));
+        Contacts after = app.contact().all();
+
+        assertThat(after, equalTo(before));
     }
 }
