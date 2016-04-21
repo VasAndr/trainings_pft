@@ -1,59 +1,87 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-    private int id;
-    private final String firstName;
-    private final String midName;
-    private final String lastName;
-    private final String nick;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String homePhone;
-    private final String mobile;
-    private final String workPhone;
-    private final String fax;
-
+    private int id = Integer.MAX_VALUE;
+    private String firstName;
+    private String midName;
+    private String lastName;
+    private String nick;
+    private String title;
+    private String company;
+    private String address;
+    private String homePhone;
+    private String mobile;
+    private String workPhone;
+    private String fax;
     private String group;
 
-    public ContactData(int id, String firstName, String midName, String lastName, String nick, String title, String company, String address, String homePhone, String mobile, String workPhone, String fax,String group) {
+    public ContactData withId(int id) {
         this.id = id;
-        this.firstName = firstName;
-        this.midName = midName;
-        this.lastName = lastName;
-        this.nick = nick;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.homePhone = homePhone;
-        this.mobile = mobile;
-        this.workPhone = workPhone;
-        this.fax = fax;
-        this.group = group;
+        return this;
     }
 
-    public ContactData(String firstName, String midName, String lastName, String nick, String title, String company, String address, String homePhone, String mobile, String workPhone, String fax,String group) {
-        this.id = Integer.MAX_VALUE;
+    public ContactData withFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withMidName(String midName) {
         this.midName = midName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNick(String nick) {
         this.nick = nick;
+        return this;
+    }
+
+    public ContactData withTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
         this.company = company;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public ContactData withHomePhone(String homePhone) {
         this.homePhone = homePhone;
+        return this;
+    }
+
+    public ContactData withMobile(String mobile) {
         this.mobile = mobile;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
         this.workPhone = workPhone;
+        return this;
+    }
+
+    public ContactData withFax(String fax) {
         this.fax = fax;
+        return this;
+    }
+
+    public ContactData inGroup(String group) {
         this.group = group;
+        return this;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -120,6 +148,7 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
+        if (id != that.id) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
 
@@ -127,7 +156,8 @@ public class ContactData {
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }
