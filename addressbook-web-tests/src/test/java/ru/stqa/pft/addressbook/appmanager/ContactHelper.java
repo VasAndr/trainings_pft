@@ -3,12 +3,12 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Hermit on 13.03.2016.
@@ -36,11 +36,11 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.geteMail());
         type(By.name("email2"), contactData.geteMail2());
         type(By.name("email3"), contactData.geteMail3());
-        if (creation) {
+      /*  if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        } */
     }
 
     public void selectContactById(int id) {
@@ -127,6 +127,9 @@ public class ContactHelper extends HelperBase {
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String midname = wd.findElement(By.name("middlename")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String nickname = wd.findElement(By.name("nickname")).getAttribute("value");
+        String title = wd.findElement(By.name("title")).getAttribute("value");
+        String company = wd.findElement(By.name("company")).getAttribute("value");
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
@@ -136,7 +139,8 @@ public class ContactHelper extends HelperBase {
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstname).withMidName(midname).withLastName(lastname)
-                .withAddress(address).witheMail(email).witheMail2(email2).witheMail3(email3)
+                .withNick(nickname).withTitle(title).withCompany(company).withAddress(address)
+                .witheMail(email).witheMail2(email2).witheMail3(email3)
                 .withHomePhone(home).withMobile(mobile).withWorkPhone(work);
     }
 
@@ -151,5 +155,53 @@ public class ContactHelper extends HelperBase {
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(7).findElement(By.tagName("a")).click();
          */
+    }
+
+    public String infoFromDetailsForm(ContactData contact) {
+        initContactDetailsById(contact.getId());
+        String details = wd.findElement(By.id("content")).getText();
+        // System.out.println(details);
+        wd.navigate().back();
+        return details;
+    }
+
+    private void initContactDetailsById(int id) {
+        wd. findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+    }
+
+    public String mergeInfo(ContactData contact) {
+        String details = mergeFullName(contact) + "\n"
+                + exist(contact.getNick()) + exist(contact.getTitle()) + exist(contact.getCompany()) + exist(contact.getAddress()) + "\n"
+                + existPhone(contact.getHomePhone(), "H") + existPhone(contact.getMobile(), "M") + existPhone(contact.getWorkPhone(), "W")
+                + existMail(contact.geteMail()) + existMail(contact.geteMail2()) + existMail(contact.geteMail3());
+        // System.out.println("*********\n" + details + "\n**********");
+        return details;
+    }
+
+    private String exist(String fieldValue) {
+        if (!fieldValue.isEmpty()) {
+            return fieldValue + "\n";
+        }
+        return "";
+    }
+
+    private String existPhone(String phone, String phoneType) {
+        if (!phone.isEmpty()) {
+            return phoneType + ": " + phone + "\n";
+        }
+        return "";
+    }
+
+    private String existMail(String fieldValue) {
+        if (!fieldValue.isEmpty()) {
+            String[] dom = fieldValue.split("@");
+            return ("\n" + fieldValue + " (www."+ dom[1] + ")");
+        }
+        return "";
+    }
+
+    private String mergeFullName(ContactData contact) {
+        return Arrays.asList(contact.getFirstName(), contact.getMidName(), contact.getLastName())
+                .stream().filter((s) -> ! s.equals("")).collect(Collectors.joining(" "));
     }
 }
