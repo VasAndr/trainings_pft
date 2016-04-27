@@ -1,0 +1,17 @@
+[
+  {
+    "groupname": "Ex_Group0",
+    "header": "Log_text0",
+    "footer": "Comment_text0"
+  },
+  {
+    "groupname": "Ex_Group1",
+    "header": "Log_text1",
+    "footer": "Comment_text1"
+  },
+  {
+    "groupname": "Ex_Group2",
+    "header": "Log_text2",
+    "footer": "Comment_text2"
+  }
+]

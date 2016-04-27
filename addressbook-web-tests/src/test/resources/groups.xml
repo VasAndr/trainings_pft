@@ -1,0 +1,17 @@
+<list>
+  <group>
+    <groupname>Ex_Group0</groupname>
+    <header>Log_text0</header>
+    <footer>Comment_text0</footer>
+  </group>
+  <group>
+    <groupname>Ex_Group1</groupname>
+    <header>Log_text1</header>
+    <footer>Comment_text1</footer>
+  </group>
+  <group>
+    <groupname>Ex_Group2</groupname>
+    <header>Log_text2</header>
+    <footer>Comment_text2</footer>
+  </group>
+</list>
