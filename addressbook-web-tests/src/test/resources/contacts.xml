@@ -1,0 +1,41 @@
+<list>
+  <contact>
+    <firstName>Andr 0</firstName>
+    <midName>Serg 0</midName>
+    <lastName>Vas 0</lastName>
+    <nick>chirp 0</nick>
+    <title>title 0</title>
+    <company>PFT 0</company>
+    <address>Dark st, 4//13-70</address>
+    <homePhone>234-778-90</homePhone>
+    <mobile>+7(676)586780</mobile>
+    <workPhone>08 63 420</workPhone>
+    <fax>54423450</fax>
+  </contact>
+  <contact>
+    <firstName>Andr 1</firstName>
+    <midName>Serg 1</midName>
+    <lastName>Vas 1</lastName>
+    <nick>chirp 1</nick>
+    <title>title 1</title>
+    <company>PFT 1</company>
+    <address>Dark st, 4//13-71</address>
+    <homePhone>234-778-91</homePhone>
+    <mobile>+7(676)586781</mobile>
+    <workPhone>08 63 421</workPhone>
+    <fax>54423451</fax>
+  </contact>
+  <contact>
+    <firstName>Andr 2</firstName>
+    <midName>Serg 2</midName>
+    <lastName>Vas 2</lastName>
+    <nick>chirp 2</nick>
+    <title>title 2</title>
+    <company>PFT 2</company>
+    <address>Dark st, 4//13-72</address>
+    <homePhone>234-778-92</homePhone>
+    <mobile>+7(676)586782</mobile>
+    <workPhone>08 63 422</workPhone>
+    <fax>54423452</fax>
+  </contact>
+</list>

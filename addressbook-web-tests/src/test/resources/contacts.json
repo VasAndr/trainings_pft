@@ -1,0 +1,41 @@
+[
+  {
+    "firstName": "Andr 0",
+    "midName": "Serg 0",
+    "lastName": "Vas 0",
+    "nick": "chirp 0",
+    "title": "title 0",
+    "company": "PFT 0",
+    "address": "Dark st, 4//13-70",
+    "homePhone": "234-778-90",
+    "mobile": "+7(676)586780",
+    "workPhone": "08 63 420",
+    "fax": "54423450"
+  },
+  {
+    "firstName": "Andr 1",
+    "midName": "Serg 1",
+    "lastName": "Vas 1",
+    "nick": "chirp 1",
+    "title": "title 1",
+    "company": "PFT 1",
+    "address": "Dark st, 4//13-71",
+    "homePhone": "234-778-91",
+    "mobile": "+7(676)586781",
+    "workPhone": "08 63 421",
+    "fax": "54423451"
+  },
+  {
+    "firstName": "Andr 2",
+    "midName": "Serg 2",
+    "lastName": "Vas 2",
+    "nick": "chirp 2",
+    "title": "title 2",
+    "company": "PFT 2",
+    "address": "Dark st, 4//13-72",
+    "homePhone": "234-778-92",
+    "mobile": "+7(676)586782",
+    "workPhone": "08 63 422",
+    "fax": "54423452"
+  }
+]
