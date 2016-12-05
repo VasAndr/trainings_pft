@@ -138,11 +138,13 @@ public class ContactHelper extends HelperBase {
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String fax = wd.findElement(By.name("fax")).getAttribute("value");
+
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstname).withMidName(midname).withLastName(lastname)
                 .withNick(nickname).withTitle(title).withCompany(company).withAddress(address)
                 .witheMail(email).witheMail2(email2).witheMail3(email3)
-                .withHomePhone(home).withMobile(mobile).withWorkPhone(work);
+                .withHomePhone(home).withMobile(mobile).withWorkPhone(work).withFax(fax);
     }
 
     private void initContactModificationById(int id) {
@@ -171,9 +173,10 @@ public class ContactHelper extends HelperBase {
     }
 
     public String mergeInfo(ContactData contact) {
-        String details = mergeFullName(contact) + "\n"
-                + exist(contact.getNick()) + exist(contact.getTitle()) + exist(contact.getCompany()) + exist(contact.getAddress()) + "\n"
+        String details = mergeFullName(contact) //+ "\n"
+                + exist(contact.getNick()) + "\n" + exist(contact.getTitle()) + exist(contact.getCompany()) + exist(contact.getAddress()) + "\n"
                 + existPhone(contact.getHomePhone(), "H") + existPhone(contact.getMobile(), "M") + existPhone(contact.getWorkPhone(), "W")
+                + existPhone(contact.getFax(), "F")
                 + existMail(contact.geteMail()) + existMail(contact.geteMail2()) + existMail(contact.geteMail3());
         // System.out.println("*********\n" + details + "\n**********");
         return details;
@@ -181,14 +184,14 @@ public class ContactHelper extends HelperBase {
 
     private String exist(String fieldValue) {
         if (!fieldValue.isEmpty()) {
-            return fieldValue + "\n";
+            return "\n" + fieldValue ;
         }
         return "";
     }
 
     private String existPhone(String phone, String phoneType) {
         if (!phone.isEmpty()) {
-            return phoneType + ": " + phone + "\n";
+            return  "\n" + phoneType + ": " + phone;
         }
         return "";
     }
@@ -196,7 +199,7 @@ public class ContactHelper extends HelperBase {
     private String existMail(String fieldValue) {
         if (!fieldValue.isEmpty()) {
             String[] dom = fieldValue.split("@");
-            return ("\n" + fieldValue + " (www."+ dom[1] + ")");
+            return ("\n" + fieldValue); // + " (www."+ dom[1] + ")");
         }
         return "";
     }
