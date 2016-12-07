@@ -14,7 +14,7 @@ public class ContactCreationTest  extends TestBase {
     @Test //(enabled = false)
     public void testContactCreation() {
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/photo.jpg");
         ContactData contact = new ContactData().withFirstName("Andr").withMidName("Serg").withLastName("Vas")
                 .withNick("chirp").withTitle("title").withCompany("PFT").withAddress("Dark st, 4//13-7")
@@ -23,7 +23,7 @@ public class ContactCreationTest  extends TestBase {
                // .inGroup("Ex_Group1");
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
@@ -31,14 +31,14 @@ public class ContactCreationTest  extends TestBase {
     @Test (enabled = false)
     public void testBadContactCreation() {
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData contact = new ContactData().withFirstName("D'Andr").withMidName("Serg").withLastName("Vas")
                 .withNick("chirp").withTitle("title").withCompany("PFT").withAddress("Dark st, 4//13-7")
                 .withHomePhone("6765867867979").withMobile("23477894").withWorkPhone("08653423").withFax("4654769")
                 .inGroup("Ex_Group1");
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
 
         assertThat(after, equalTo(before));
     }

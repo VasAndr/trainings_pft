@@ -90,7 +90,7 @@ public class ContactData {
 
     @Column(name = "photo")
     @Type(type = "text")
-    private String photo;
+    private String photo; // = "src/test/resources/default_photo.jpg";
 
     public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
@@ -195,10 +195,6 @@ public class ContactData {
         return firstName;
     }
 
-    public File getPhoto() {
-        return new File(photo);
-    }
-
     public String getMidName() {
         return midName;
     }
@@ -263,6 +259,11 @@ public class ContactData {
         return alleMails;
     }
 
+    public File getPhoto() {
+        if (photo != null) {
+            return new File(photo);
+        } else return null;
+    }
 
     @Override
     public String toString() {
@@ -282,15 +283,32 @@ public class ContactData {
 
         if (id != that.id) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
-
+        if (midName != null ? !midName.equals(that.midName) : that.midName != null) return false;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (nick != null ? !nick.equals(that.nick) : that.nick != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (company != null ? !company.equals(that.company) : that.company != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (homePhone != null ? !homePhone.equals(that.homePhone) : that.homePhone != null) return false;
+        if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
+        if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
+        return fax != null ? fax.equals(that.fax) : that.fax == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (midName != null ? midName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (nick != null ? nick.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
+        result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
+        result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
+        result = 31 * result + (fax != null ? fax.hashCode() : 0);
         return result;
     }
 }
