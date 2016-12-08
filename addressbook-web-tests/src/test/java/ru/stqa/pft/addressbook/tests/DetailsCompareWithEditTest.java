@@ -31,7 +31,6 @@ public class DetailsCompareWithEditTest extends TestBase {
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
         assertThat(contactInfoFromDetailsForm, equalTo(app.contact().mergeInfo(contactInfoFromEditForm)));
-
     }
 
 }
