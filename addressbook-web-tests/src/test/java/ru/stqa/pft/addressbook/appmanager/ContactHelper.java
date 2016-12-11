@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
@@ -37,11 +39,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.geteMail());
         type(By.name("email2"), contactData.geteMail2());
         type(By.name("email3"), contactData.geteMail3());
-      /*  if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        if (creation) {
+            if (contactData.getGroups().size() >0) {
+                Assert.assertTrue(contactData.getGroups().size() ==1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getGroupname());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        } */
+        }
     }
 
     public void selectContactById(int id) {
@@ -207,5 +212,25 @@ public class ContactHelper extends HelperBase {
     private String mergeFullName(ContactData contact) {
         return Arrays.asList(contact.getFirstName(), contact.getMidName(), contact.getLastName())
                 .stream().filter((s) -> ! s.equals("")).collect(Collectors.joining(" "));
+    }
+
+    private void selectGroupForAddTo (int groupId) {
+        wd.findElement(By.xpath("//div[@class='right']/select[@name='to_group']/option[@value='" + groupId +"']")).click();
+    }
+
+    public void initAddContactToGroup (int contactId, int groupId) {
+        wd.findElement(By.cssSelector("input[value='"+contactId+"']")).click();
+        wd.findElement(By.xpath("//div[@class='right']/select[@name='to_group']/option[@value='" + groupId +"']")).click();
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void contactsForSelectedGroup (int groupId) {
+        wd.findElement(By.xpath("//form[@id='right']/select[@name='group']/option[@value='" + groupId +"']")).click();
+    }
+
+    public void initRemoveContactFromGroup (int contactId, int groupId, String groupName) {
+        contactsForSelectedGroup (groupId);
+        wd.findElement(By.cssSelector("input[value='"+contactId+"']")).click();
+        wd.findElement(By.xpath("//div[@class='left']/input[@value='Remove from \"" + groupName + "\"']")).click();
     }
 }

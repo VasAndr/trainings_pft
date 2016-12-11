@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.openqa.selenium.support.ui.Wait;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -44,5 +45,30 @@ public class DbHelper {
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
+    }
+
+    public void refreshGroup(GroupData group) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.refresh(group);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void refreshContact(ContactData contact) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.refresh(contact);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public Groups selectGroupByIdDb (int groupId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<GroupData> result = session.createQuery( "from GroupData where group_id='" + groupId +"'" ).list();
+        session.getTransaction().commit();
+        session.close();
+        return new Groups(result);
     }
 }
